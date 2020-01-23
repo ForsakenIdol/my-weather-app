@@ -62,17 +62,17 @@ code {
   float: left;
   width: 20%;
   color: #FFFFFF;
-  font-size: 30px;
+  font-size: 20px;
   transition: 0.2s;
 }
 
 .bodycolumn:hover {
-  font-size: 35px;
+  font-size: 25px;
 }
 
 .weather-later {
   position: relative;
-  left: 45%;
+  left: 47%;
   margin-top: 300px;
 }
 

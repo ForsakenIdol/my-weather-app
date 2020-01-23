@@ -71,51 +71,51 @@ class App extends React.Component {
 
   render() {
     return (
-      <html class="weather-app">
-        <header class="weather-today">
-          <div class="headcolumn">
+      <html className="weather-app">
+        <header className="weather-today">
+          <div className="headcolumn">
             {/*
               * This button should move the forecast time backwards by 3 hours.
               * Does nothing if user tries to move to yesterday.
               */}
-            <button onClick={this.decrementTime} class="nav-button">Remove 3 hours</button>
+            <button onClick={this.decrementTime} className="nav-button">Remove 3 hours</button>
           </div>
-          <div class="headcolumn">
-            <p class="forecast-title">Forecast for {this.state.city == null ? "undefined" : this.state.city}, 
+          <div className="headcolumn">
+            <p className="forecast-title">Forecast for {this.state.city == null ? "undefined" : this.state.city}, 
             {this.state.country == null ? "undefined" : this.state.country}:</p>
-            <p class="top-forecast">{this.state.day1 == null ? "--" : this.state.day1} °C</p> 
+            <p className="top-forecast">{this.state.day1 == null ? "--" : this.state.day1} °C</p> 
           </div>
-          <div class="headcolumn">
+          <div className="headcolumn">
             {/*
               * This button should move the forecast time forwards by 3 hours.
               * Does nothing if user tries to move it to the next day.
               */}
-            <button onClick={this.incrementTime}  class="nav-button">Add 3 hours</button>
+            <button onClick={this.incrementTime}  className="nav-button">Add 3 hours</button>
           </div>
         </header>
-        <body class="weather-later">
-              <div class="bodycolumn">
+        <body className="weather-later">
+              <div className="bodycolumn">
                 <p>Today</p>
                 <p>{this.state.day1 == null ? "--" : this.state.day1} °C</p>
               </div>
-              <div class="bodycolumn">
+              <div className="bodycolumn">
                 <p>Tomorrow</p>
                 <p>{this.state.day2 == null ? "--" : this.state.day2} °C</p>
               </div>
-              <div class="bodycolumn">
+              <div className="bodycolumn">
                 <p>Day 3</p>
                 <p>{this.state.day3 == null ? "--" : this.state.day3} °C</p>
               </div>
-              <div class="bodycolumn">
+              <div className="bodycolumn">
                 <p>Day 4</p>
                 <p>{this.state.day4 == null ? "--" : this.state.day4} °C</p>
               </div>
-              <div class="bodycolumn">
+              <div className="bodycolumn">
                 <p>Day 5</p>
                 <p>{this.state.day5 == null ? "--" : this.state.day5} °C</p>
               </div>
         </body>
-        <footer class="about-app">
+        <footer className="about-app">
           <p>
             This app was made by Lachlan and developed at Takor.
             It is a simple weather app to demonstrate API fetch requests and practise good git commits.
