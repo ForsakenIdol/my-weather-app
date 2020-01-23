@@ -52,6 +52,19 @@ class App extends React.Component {
     this.getWeatherData();
   }
 
+  incrementTime = () => {
+    if(this.state.timeInc < 5) {
+      this.setState({timeInc: this.state.timeInc + 1});
+      this.getWeatherData();
+    }
+  }
+  decrementTime = () => {
+    if(this.state.timeInc > 0) {
+      this.setState({timeInc: this.state.timeInc - 1});
+      this.getWeatherData();
+    }
+  }
+
   render() {
     return (
       <html class="weather-app">
@@ -61,7 +74,7 @@ class App extends React.Component {
               * This button should move the forecast time backwards by 3 hours.
               * Does nothing if user tries to move to yesterday.
               */}
-            <button onClick={() => {this.setState({timeInc: this.state.timeInc - 1})}} class="nav-button">Remove 3 hours</button>
+            <button onClick={this.decrementTime} class="nav-button">Remove 3 hours</button>
           </div>
           <div class="headcolumn">
             <p class="forecast-title">Forecast for {this.state.city == null ? "undefined" : this.state.city}, 
@@ -73,7 +86,7 @@ class App extends React.Component {
               * This button should move the forecast time forwards by 3 hours.
               * Does nothing if user tries to move it to the next day.
               */}
-            <button onClick={() => {this.setState({timeInc: this.state.timeInc + 1})}}  class="nav-button">Add 3 hours</button>
+            <button onClick={this.incrementTime}  class="nav-button">Add 3 hours</button>
           </div>
         </header>
         <body class="weather-later">
@@ -103,6 +116,7 @@ class App extends React.Component {
             This app was made by Lachlan and developed at Takor.
             It is a simple weather app to demonstrate API fetch requests and practise good git commits.
           </p>
+            <p>Current time increment: {this.state.timeInc}</p>
         </footer>
       </html>
     );
