@@ -10,17 +10,21 @@ class App extends React.Component {
       day2: null,
       day3: null,
       day4: null,
-      day5: null
-    }
-  }
+      day5: null,
 
-  componentDidMount() {
-    this.getWeatherData();
+      /* Other variables */
+      timeInc: 2, /* Navigation for the day */
+      city: null,
+      country: null
+    }
   }
 
   kelvinToCelsius = (kelvin) => {return (kelvin - 273.15);}
 
-  /* Fetch API address: http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c */
+  /* 
+   * Fetch API address for Perth:
+   * http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c
+   */
   getWeatherData = () => {
     fetch("http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c")
     .then((response) => {
@@ -28,16 +32,24 @@ class App extends React.Component {
 
       return response.json();
     }).then(json_result /* This is the response.json() */ => {
-      this.setState({day1: parseFloat(this.kelvinToCelsius(json_result.list[0].main.temp).toFixed(4))});
-      this.setState({day2: parseFloat(this.kelvinToCelsius(json_result.list[6].main.temp).toFixed(4))});
-      this.setState({day3: parseFloat(this.kelvinToCelsius(json_result.list[12].main.temp).toFixed(4))});
-      this.setState({day4: parseFloat(this.kelvinToCelsius(json_result.list[18].main.temp).toFixed(4))});
-      this.setState({day5: parseFloat(this.kelvinToCelsius(json_result.list[24].main.temp).toFixed(4))});
+      /* Set temperature data for days */
+      this.setState({day1: parseFloat(this.kelvinToCelsius(json_result.list[this.state.timeInc].main.temp).toFixed(4))});
+      this.setState({day2: parseFloat(this.kelvinToCelsius(json_result.list[6 + this.state.timeInc].main.temp).toFixed(4))});
+      this.setState({day3: parseFloat(this.kelvinToCelsius(json_result.list[12 + this.state.timeInc].main.temp).toFixed(4))});
+      this.setState({day4: parseFloat(this.kelvinToCelsius(json_result.list[18 + this.state.timeInc].main.temp).toFixed(4))});
+      this.setState({day5: parseFloat(this.kelvinToCelsius(json_result.list[24 + this.state.timeInc].main.temp).toFixed(4))});
+      /* Set city data */
+      this.setState({city: json_result.city.name});
+      this.setState({country: json_result.city.country});
     })
     .catch((error) => {
       console.log(error);
       return error;
     });
+  }
+
+  componentDidMount() { /* When the component is displayed, run this function */
+    this.getWeatherData();
   }
 
   render() {
@@ -46,20 +58,22 @@ class App extends React.Component {
         <header class="weather-today">
           <div class="headcolumn">
             {/*
-              * This button should move the big forecast back a day in the week.
+              * This button should move the forecast time backwards by 3 hours.
               * Does nothing if user tries to move to yesterday.
               */}
-            <button onClick={() => {console.log("something")}} class="nav-button">Previous day</button>
+            <button onClick={() => {this.setState({timeInc: this.state.timeInc - 1})}} class="nav-button">Remove 3 hours</button>
           </div>
           <div class="headcolumn">
-            <p>{this.state.day1 == null ? "--" : this.state.day1} °C</p> {/* Replace this later with the data from the api */}
+            <p class="forecast-title">Forecast for {this.state.city == null ? "undefined" : this.state.city}, 
+            {this.state.country == null ? "undefined" : this.state.country}:</p>
+            <p>{this.state.day1 == null ? "--" : this.state.day1} °C</p> 
           </div>
           <div class="headcolumn">
             {/*
-              * This button should move the big forecast forward a day in the week.
-              * Does nothing if user tries to move past day 5.
+              * This button should move the forecast time forwards by 3 hours.
+              * Does nothing if user tries to move it to the next day.
               */}
-            <button onClick={() => {console.log("something")}}  class="nav-button">Next day</button>
+            <button onClick={() => {this.setState({timeInc: this.state.timeInc + 1})}}  class="nav-button">Add 3 hours</button>
           </div>
         </header>
         <body class="weather-later">

@@ -14,6 +14,10 @@ code {
     monospace;
 }
 
+.forecast-title {
+  font-size: 30px;
+}
+
 .weather-today {
   position: absolute;
   left: 50%;
