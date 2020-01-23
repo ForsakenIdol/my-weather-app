@@ -36,11 +36,19 @@ code {
 }
 
 .nav-button:active {
-  background: #000000;
+  color: #000000;
 }
 
 .nav-button:hover {
   background: #95a5a6;
+}
+
+.top-forecast {
+  transition: 0.2s;
+}
+
+.top-forecast:hover {
+  font-size: 55px;
 }
 
 .headcolumn {
@@ -55,8 +63,12 @@ code {
   width: 20%;
   color: #FFFFFF;
   font-size: 30px;
+  transition: 0.2s;
 }
 
+.bodycolumn:hover {
+  font-size: 35px;
+}
 
 .weather-later {
   position: relative;

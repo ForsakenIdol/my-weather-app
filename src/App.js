@@ -81,7 +81,7 @@ class App extends React.Component {
           <div class="headcolumn">
             <p class="forecast-title">Forecast for {this.state.city == null ? "undefined" : this.state.city}, 
             {this.state.country == null ? "undefined" : this.state.country}:</p>
-            <p>{this.state.day1 == null ? "--" : this.state.day1} °C</p> 
+            <p class="top-forecast">{this.state.day1 == null ? "--" : this.state.day1} °C</p> 
           </div>
           <div class="headcolumn">
             {/*
