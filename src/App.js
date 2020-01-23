@@ -14,6 +14,8 @@ class App extends React.Component {
     }
   }
 
+  /* Fetch API address: http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c */
+
   render() {
     return (
       <html class="weather-app">
@@ -25,7 +27,7 @@ class App extends React.Component {
             <button onClick={() => {console.log("something")}} class="nav-button">Previous day</button>
           </div>
           <div class="headcolumn">
-            <p>-- °C</p> {/* Replace this later with the data from the api */}
+            <p>{this.state.day1 == null ? "--" : this.state.day1} °C</p> {/* Replace this later with the data from the api */}
           </div>
           <div class="headcolumn">
             {/* This button should move the big forecast forward a day in the week.
@@ -37,23 +39,23 @@ class App extends React.Component {
         <body class="weather-later">
               <div class="bodycolumn">
                 <p>Today</p>
-                <p>-- °C</p>
+                <p>{this.state.day1 == null ? "--" : this.state.day1} °C</p>
               </div>
               <div class="bodycolumn">
                 <p>Tomorrow</p>
-                <p>-- °C</p>
+                <p>{this.state.day2 == null ? "--" : this.state.day2} °C</p>
               </div>
               <div class="bodycolumn">
                 <p>Day 3</p>
-                <p>-- °C</p>
+                <p>{this.state.day3 == null ? "--" : this.state.day3} °C</p>
               </div>
               <div class="bodycolumn">
                 <p>Day 4</p>
-                <p>-- °C</p>
+                <p>{this.state.day4 == null ? "--" : this.state.day4} °C</p>
               </div>
               <div class="bodycolumn">
                 <p>Day 5</p>
-                <p>-- °C</p>
+                <p>{this.state.day5 == null ? "--" : this.state.day5} °C</p>
               </div>
         </body>
         <footer class="about-app">
