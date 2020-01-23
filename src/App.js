@@ -4,21 +4,20 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="weather-app">
+      <header className="weather-today">
+
       </header>
+      <body className="weather-later">
+
+      </body>
+      <footer className="about-app">
+        <pre>
+          This app was made by Lachlan and developed at Takor.
+
+          It is a simple weather app to demonstrate API fetch requests and practise good git commits.
+        </pre>
+      </footer>
     </div>
   );
 }
