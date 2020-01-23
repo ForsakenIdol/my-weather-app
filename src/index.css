@@ -14,7 +14,59 @@ code {
     monospace;
 }
 
+.weather-today {
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  width: 100%;
+}
+
+.nav-button {
+  background: none;
+  border-color: #ecf0f1;
+  border-radius: 5px; /* Even without a border, this still specifies how rounded our button corners are. */
+
+  font-size: 15px;
+  color: #ecf0f1;
+  transition: 0.25s
+}
+
+.nav-button:active {
+  background: #ecf0f1;
+}
+
+.nav-button:hover {
+  background: #95a5a6;
+}
+
+.headcolumn {
+  float: left;
+  width: 33.33%;
+  color: #FFFFFF;
+  font-size: 50px;
+}
+
+.bodycolumn {
+  float: left;
+  width: 20%;
+  color: #FFFFFF;
+  font-size: 30px;
+}
+
+
+.weather-later {
+  position: relative;
+  left: 45%;
+  margin-top: 300px;
+}
+
+
 .about-app {
-  font-size: 20px;
+  position: absolute;
+  left: 70%;
+  top: 90%;
+
+  font-size: 10px;
   color: #ecf0f1; /* This is the text color. */
+  text-align: center;
 }
