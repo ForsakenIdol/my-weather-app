@@ -15,7 +15,8 @@ class App extends React.Component {
       /* Other variables */
       timeInc: 2, /* Navigation for the day */
       city: null,
-      country: null
+      country: null,
+      forecastTime: null /* Current time at which forecast was taken */
     }
   }
 
@@ -38,9 +39,10 @@ class App extends React.Component {
       this.setState({day3: parseFloat(this.kelvinToCelsius(json_result.list[12 + this.state.timeInc].main.temp).toFixed(4))});
       this.setState({day4: parseFloat(this.kelvinToCelsius(json_result.list[18 + this.state.timeInc].main.temp).toFixed(4))});
       this.setState({day5: parseFloat(this.kelvinToCelsius(json_result.list[24 + this.state.timeInc].main.temp).toFixed(4))});
-      /* Set city data */
+      /* Set city and time data */
       this.setState({city: json_result.city.name});
       this.setState({country: json_result.city.country});
+      this.setState({forecastTime: json_result.list[this.state.timeInc].dt_txt});
     })
     .catch((error) => {
       console.log(error);
@@ -53,7 +55,7 @@ class App extends React.Component {
   }
 
   incrementTime = () => {
-    if(this.state.timeInc < 5) {
+    if(this.state.timeInc < 40) {
       this.setState({timeInc: this.state.timeInc + 1});
       this.getWeatherData();
     }
@@ -116,7 +118,7 @@ class App extends React.Component {
             This app was made by Lachlan and developed at Takor.
             It is a simple weather app to demonstrate API fetch requests and practise good git commits.
           </p>
-            <p>Current time increment: {this.state.timeInc}</p>
+            <p>Current date and time of forecast: {this.state.forecastTime == null ? "--" : this.state.forecastTime}</p>
         </footer>
       </html>
     );
