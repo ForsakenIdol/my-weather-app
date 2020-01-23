@@ -13,7 +13,8 @@ class App extends React.Component {
       day5: null,
 
       /* Other variables */
-      timeInc: 2, /* Navigation for the day */
+      timeInc: 0, /* Navigation for the day */
+      totalLines: null,
       city: null,
       country: null,
       forecastTime: null /* Current time at which forecast was taken */
@@ -39,10 +40,11 @@ class App extends React.Component {
       this.setState({day3: parseFloat(this.kelvinToCelsius(json_result.list[12 + this.state.timeInc].main.temp).toFixed(4))});
       this.setState({day4: parseFloat(this.kelvinToCelsius(json_result.list[18 + this.state.timeInc].main.temp).toFixed(4))});
       this.setState({day5: parseFloat(this.kelvinToCelsius(json_result.list[24 + this.state.timeInc].main.temp).toFixed(4))});
-      /* Set city and time data */
+      /* Set other state data */
       this.setState({city: json_result.city.name});
       this.setState({country: json_result.city.country});
       this.setState({forecastTime: json_result.list[this.state.timeInc].dt_txt});
+      this.setState({totalLines: json_result.cnt});
     })
     .catch((error) => {
       console.log(error);
@@ -55,7 +57,7 @@ class App extends React.Component {
   }
 
   incrementTime = () => {
-    if(this.state.timeInc < 40) {
+    if(this.state.timeInc < this.state.totalLines) {
       this.setState({timeInc: this.state.timeInc + 1});
       this.getWeatherData();
     }
