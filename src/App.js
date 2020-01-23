@@ -12,11 +12,10 @@ function App() {
 
       </body>
       <footer className="about-app">
-        <pre>
+        <p>
           This app was made by Lachlan and developed at Takor.
-
           It is a simple weather app to demonstrate API fetch requests and practise good git commits.
-        </pre>
+        </p>
       </footer>
     </div>
   );
