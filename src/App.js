@@ -85,41 +85,65 @@ class App extends React.Component {
         <div class="row" id="title-forecast">
           <div class="col-md-4">{/* Empty spacer */}</div>
           <div class="col-md-4">
-            <h3>Today's Forecast:</h3>
-            <h5><small>{this.state.city == null ? "undefined" : this.state.city}, 
-            {this.state.country == null ? "undefined" : this.state.country}</small></h5>
+            <div class="text-center">
+              <h3>Today's Forecast:</h3>
+              <h5><small>{this.state.city == null ? "undefined" : this.state.city}, 
+              {this.state.country == null ? "undefined" : this.state.country}</small></h5>
+            </div>
           </div>
           <div class="col-md-4">{/* Empty spacer */}</div>
         </div>
         <div class="row" id="current-forecast">
           <div class="col-md-4">
-            <button type="button" onClick={this.decrementTime} class="btn btn-danger btn-sm">Remove 3 hours</button>
+            <div class="text-center">
+              <button type="button" onClick={this.decrementTime} class="btn btn-primary btn-sm">Remove 3 hours</button>
+            </div>
           </div>
           <div class="col-md-4">
-            <h1>{this.state.day1 == null ? "--" : this.state.day1} °C</h1>
+            <div class="text-center"><h1>{this.state.day1 == null ? "--" : this.state.day1} °C</h1></div>
           </div>
           <div class="col-md-4">
-            <button type="button" onClick={this.incrementTime} class="btn btn-primary btn-sm">Add 3 hours</button>
+            <div class="text-center">
+              <button type="button" onClick={this.incrementTime} class="btn btn-primary btn-sm">Add 3 hours</button>
+            </div>
           </div>
         </div>
         <div class="mt-5" id="spacer">{/* Empty row spacer */}</div>
         <div class="row" id="later-forecast">
           <div class="col-md-3">
-            <p class="lead">Tomorrow</p>
-            <h2>{this.state.day2 == null ? "--" : this.state.day2} °C</h2>
+            <div class="text-center">
+              <p class="lead">Tomorrow</p>
+              <h2>{this.state.day2 == null ? "--" : this.state.day2} °C</h2>
+            </div>
           </div>
           <div class="col-md-3">
-            <p class="lead">Day 3</p>
-            <h2>{this.state.day3 == null ? "--" : this.state.day3} °C</h2>
+            <div class="text-center">
+              <p class="lead">Day 3</p>
+              <h2>{this.state.day3 == null ? "--" : this.state.day3} °C</h2>
+            </div>
           </div>
           <div class="col-md-3">
-            <p class="lead">Day 4</p>
-            <h2>{this.state.day4 == null ? "--" : this.state.day4} °C</h2>
+            <div class="text-center">
+              <p class="lead">Day 4</p>
+              <h2>{this.state.day4 == null ? "--" : this.state.day4} °C</h2>
+            </div>
           </div>
           <div class="col-md-3">
-            <p class="lead">Day 5</p>
-            <h2>{this.state.day5 == null ? "--" : this.state.day5} °C</h2>
+            <div class="text-center">
+              <p class="lead">Day 5</p>
+              <h2>{this.state.day5 == null ? "--" : this.state.day5} °C</h2>
+            </div>
           </div>
+        </div>
+        <div class="mt-5" id="spacer">{/* Empty row spacer */}</div>
+        <div class="row" id="reset-button">
+          <div class="col-md-4">{/* Empty spacer */}</div>
+          <div class="col-md-4">
+            <div class="text-center">
+              <button type="button" onClick={() => {this.setState({timeInc: 0}); this.getWeatherData();}} class="btn btn-danger btn-sm">Reset Forecast</button>
+            </div>
+          </div>
+          <div class="col-md-4">{/* Empty spacer */}</div>
         </div>
         <div class="mt-5" id="spacer">{/* Empty row spacer */}</div>
         <div class="row" id="about-app">
