@@ -7,6 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      cityCode: 2063523, /* Default city code is Perth, AU */
       /* Forecast variables */
       day1: null,
       day2: null,
@@ -35,7 +36,9 @@ class App extends React.Component {
    * http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c
    */
   getWeatherData = () => {
-    fetch("http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c")
+    let APIAddress = "http://api.openweathermap.org/data/2.5/forecast?id=" + this.state.cityCode
+                      + "&APPID=a61002d90fe4eaac824f28012985aa2c"
+    fetch(APIAddress)
     .then((response) => {
       if (!response.ok) throw new Error("Weather API response was not ok");
       return response.json();
@@ -100,17 +103,23 @@ class App extends React.Component {
    * finds the corresponding image link (icons).
    */
   getWeatherIcon = (props) => {
-    var conditions = ["Thunderstorm", "Drizzle", "Rain", "Snow", "Atmosphere", "Clear", "Clouds"];
-    var icons = ["http://openweathermap.org/img/wn/11d@2x.png", "http://openweathermap.org/img/wn/10d@2x.png",
+    let conditions = ["Thunderstorm", "Drizzle", "Rain", "Snow", "Atmosphere", "Clear", "Clouds"];
+    let icons = ["http://openweathermap.org/img/wn/11d@2x.png", "http://openweathermap.org/img/wn/10d@2x.png",
                  "http://openweathermap.org/img/wn/09d@2x.png", "http://openweathermap.org/img/wn/13d@2x.png",
                  "http://openweathermap.org/img/wn/50d@2x.png", "http://openweathermap.org/img/wn/01d@2x.png",
                  "http://openweathermap.org/img/wn/04d@2x.png"];
     for (let i = 0; i < 7; i++) {
       if (props == conditions[i]) {
-        console.log(icons[i]);
         return icons[i];
       }
     }
+  }
+
+  handleChange = event => {this.setState({cityCode: event.target.value});}
+
+  handleSubmit = event => {
+    this.getWeatherData();
+    event.preventDefault();
   }
 
   render() {
@@ -121,8 +130,8 @@ class App extends React.Component {
           <div className="col-md-4">
             <div className="text-center">
               <h3>Today's Forecast: {this.state.day1Weather == null ? "--" : this.state.day1Weather}</h3>
-              <h5><small>{this.state.city == null ? "undefined" : this.state.city}, 
-              {this.state.country == null ? "undefined" : this.state.country}</small></h5>
+              <h5><small>{this.state.city == null ? "--" : this.state.city}, 
+              {this.state.country == null ? "--" : this.state.country}</small></h5>
             </div>
           </div>
           <div className="col-md-4">{/* Empty spacer */}</div>
@@ -134,7 +143,7 @@ class App extends React.Component {
             </div>
           </div>
           <div className="col-md-4"> {/* Forecast for today */}
-            <img src={this.getWeatherIcon(this.state.day1Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
+            <img src={this.getWeatherIcon(this.state.day1Weather)} className="mx-auto d-block" ></img>
             <div className="text-center"><h1>{this.state.day1 == null ? "--" : this.state.day1} °C</h1></div>
           </div>
           <div className="col-md-4">
@@ -148,28 +157,28 @@ class App extends React.Component {
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Tomorrow: {this.state.day2Weather == null ? "--" : this.state.day2Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day2Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
+              <img src={this.getWeatherIcon(this.state.day2Weather)} className="mx-auto d-block" ></img>
               <h2>{this.state.day2 == null ? "--" : this.state.day2} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 3: {this.state.day3Weather == null ? "--" : this.state.day3Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day3Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
+              <img src={this.getWeatherIcon(this.state.day3Weather)} className="mx-auto d-block" ></img>
               <h2>{this.state.day3 == null ? "--" : this.state.day3} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 4: {this.state.day4Weather == null ? "--" : this.state.day4Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day4Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
+              <img src={this.getWeatherIcon(this.state.day4Weather)} className="mx-auto d-block" ></img>
               <h2>{this.state.day4 == null ? "--" : this.state.day4} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 5: {this.state.day5Weather == null ? "--" : this.state.day5Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day5Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
+              <img src={this.getWeatherIcon(this.state.day5Weather)} className="mx-auto d-block" ></img>
               <h2>{this.state.day5 == null ? "--" : this.state.day5} °C</h2>
             </div>
           </div>
@@ -186,7 +195,17 @@ class App extends React.Component {
         </div>
         <div className="mt-5" id="spacer">{/* Empty row spacer */}</div>
         <div className="row" id="about-app">
-          <div className="col-md-4">{/* Empty spacer */}</div>
+          <div className="col-md-4">
+            <div className="text-center">
+              <h6>Enter your city code or ID (not your postcode!) to get accurate forecast information relative to your location:</h6>
+              <form onSubmit={this.handleSubmit}>
+                <div class="form-group">
+                  <input type="text" class="form-control-sm" onChange={this.handleChange} />
+                  <input type="submit" class="btn btn-info btn-sm" value="Update Code" />
+                </div>
+              </form>
+            </div>
+          </div>
           <div className="col-md-4">
             <div className="text-center">
               <h6><small>This app was made by Lachlan D Whang and developed at Takor.
