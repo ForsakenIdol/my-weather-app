@@ -13,14 +13,12 @@ class App extends React.Component {
       day3: null,
       day4: null,
       day5: null,
-
       /* Weather description variables (used for icons) */
       day1Weather: null,
       day2Weather: null,
       day3Weather: null,
       day4Weather: null,
       day5Weather: null,
-
       /* Other variables */
       timeInc: 0, /* Navigation for the day */
       totalLines: null,
@@ -40,7 +38,6 @@ class App extends React.Component {
     fetch("http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c")
     .then((response) => {
       if (!response.ok) throw new Error("Weather API response was not ok");
-
       return response.json();
     }).then(json_result /* This is the response.json() */ => {
       /* Set misc. state data */
@@ -72,7 +69,6 @@ class App extends React.Component {
          json_result.list[18 + this.state.timeInc].weather[0].main})
       this.setState({day5Weather: 24 + this.state.timeInc > this.state.totalLines ? null :
         json_result.list[24 + this.state.timeInc].weather[0].main})
-
     })
     .catch((error) => {
       console.log(error);
@@ -99,6 +95,24 @@ class App extends React.Component {
     }
   }
 
+  /*
+   * Given the "Main" value for the weather (conditions),
+   * finds the corresponding image link (icons).
+   */
+  getWeatherIcon = (props) => {
+    var conditions = ["Thunderstorm", "Drizzle", "Rain", "Snow", "Atmosphere", "Clear", "Clouds"];
+    var icons = ["http://openweathermap.org/img/wn/11d@2x.png", "http://openweathermap.org/img/wn/10d@2x.png",
+                 "http://openweathermap.org/img/wn/09d@2x.png", "http://openweathermap.org/img/wn/13d@2x.png",
+                 "http://openweathermap.org/img/wn/50d@2x.png", "http://openweathermap.org/img/wn/01d@2x.png",
+                 "http://openweathermap.org/img/wn/04d@2x.png"];
+    for (let i = 0; i < 7; i++) {
+      if (props == conditions[i]) {
+        console.log(icons[i]);
+        return icons[i];
+      }
+    }
+  }
+
   render() {
     return (
       <div className="p-3 mb-2 bg-dark text-white">
@@ -119,7 +133,8 @@ class App extends React.Component {
               <button type="button" onClick={this.decrementTime} className="btn btn-primary btn-sm">Remove 3 hours</button>
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4"> {/* Forecast for today */}
+            <img src={this.getWeatherIcon(this.state.day1Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
             <div className="text-center"><h1>{this.state.day1 == null ? "--" : this.state.day1} °C</h1></div>
           </div>
           <div className="col-md-4">
@@ -133,24 +148,28 @@ class App extends React.Component {
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Tomorrow: {this.state.day2Weather == null ? "--" : this.state.day2Weather}</p>
+              <img src={this.getWeatherIcon(this.state.day2Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
               <h2>{this.state.day2 == null ? "--" : this.state.day2} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 3: {this.state.day3Weather == null ? "--" : this.state.day3Weather}</p>
+              <img src={this.getWeatherIcon(this.state.day3Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
               <h2>{this.state.day3 == null ? "--" : this.state.day3} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 4: {this.state.day4Weather == null ? "--" : this.state.day4Weather}</p>
+              <img src={this.getWeatherIcon(this.state.day4Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
               <h2>{this.state.day4 == null ? "--" : this.state.day4} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 5: {this.state.day5Weather == null ? "--" : this.state.day5Weather}</p>
+              <img src={this.getWeatherIcon(this.state.day5Weather)} className="mx-auto d-block" alt="Current Weather Icon"></img>
               <h2>{this.state.day5 == null ? "--" : this.state.day5} °C</h2>
             </div>
           </div>
@@ -170,7 +189,7 @@ class App extends React.Component {
           <div className="col-md-4">{/* Empty spacer */}</div>
           <div className="col-md-4">
             <div className="text-center">
-              <h6><small>This app was made by Lachlan and developed at Takor.
+              <h6><small>This app was made by Lachlan D Whang and developed at Takor.
                 It is a simple weather app to demonstrate API fetch requests and practise good git commits.</small></h6>
                 <h6><small>Current date and time of forecast: 
                   {this.state.forecastTime == null ? "--" : this.state.forecastTime}</small></h6>
