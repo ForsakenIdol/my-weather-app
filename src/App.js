@@ -197,20 +197,31 @@ class App extends React.Component {
         <div className="row" id="about-app">
           <div className="col-md-4">
             <div className="text-center">
-              <h6>Enter your city code or ID (not your postcode!) to get accurate forecast information relative to your location:</h6>
-              <form onSubmit={this.handleSubmit}>
-                <div class="form-group">
-                  <input type="text" class="form-control-sm" onChange={this.handleChange} />
-                  <input type="submit" class="btn btn-info btn-sm" value="Update Code" />
-                </div>
-              </form>
+              <small>Enter your city code or ID (not your postcode!) to get accurate forecast information relative to your location:</small>
             </div>
           </div>
           <div className="col-md-4">
             <div className="text-center">
               <h6><small>This app was made by Lachlan D Whang and developed at Takor.
                 It is a simple weather app to demonstrate API fetch requests and practise good git commits.</small></h6>
-                <h6><small>Current date and time of forecast: 
+            </div>
+          </div>
+          <div className="col-md-4">{/* Empty spacer */}</div>
+        </div>
+        <div className="row">
+          <div className="col-md-4">
+            <form onSubmit={this.handleSubmit}>
+              <div className="text-center">
+                <div class="form-group">
+                  <input type="text" class="form-control-sm" onChange={this.handleChange} />
+                  <input type="submit" class="btn btn-info btn-sm" value="Update Code" />
+                </div>
+              </div>
+            </form>
+          </div>
+          <div className="col-md-4">
+            <div className="text-center">
+            <h6><small>Current date and time of forecast: </small></h6><h6><small>
                   {this.state.forecastTime == null ? "--" : this.state.forecastTime}</small></h6>
             </div>
           </div>
