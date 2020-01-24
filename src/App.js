@@ -56,12 +56,14 @@ class App extends React.Component {
     this.getWeatherData();
   }
 
+  // Move forecast forward by 3 hours; does nothing if user tries to move it past the 5 day limit
   incrementTime = () => {
     if(this.state.timeInc < this.state.totalLines) {
       this.setState({timeInc: this.state.timeInc + 1});
       this.getWeatherData();
     }
   }
+  // Moves forecast back by 3 hours; does nothing if user tries to move it behind the current day
   decrementTime = () => {
     if(this.state.timeInc > 0) {
       this.setState({timeInc: this.state.timeInc - 1});
@@ -71,13 +73,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <html className="weather-app">
-        <header className="weather-today">
+      <div className="weather-app">
+        <div className="weather-today">
           <div className="headcolumn">
-            {/*
-              * This button should move the forecast time backwards by 3 hours.
-              * Does nothing if user tries to move to yesterday.
-              */}
             <button onClick={this.decrementTime} className="nav-button">Remove 3 hours</button>
           </div>
           <div className="headcolumn">
@@ -86,14 +84,10 @@ class App extends React.Component {
             <p className="top-forecast">{this.state.day1 == null ? "--" : this.state.day1} °C</p> 
           </div>
           <div className="headcolumn">
-            {/*
-              * This button should move the forecast time forwards by 3 hours.
-              * Does nothing if user tries to move it to the next day.
-              */}
             <button onClick={this.incrementTime}  className="nav-button">Add 3 hours</button>
           </div>
-        </header>
-        <body className="weather-later">
+        </div>
+        <div className="weather-later">
               <div className="bodycolumn">
                 <p>Today</p>
                 <p>{this.state.day1 == null ? "--" : this.state.day1} °C</p>
@@ -114,15 +108,15 @@ class App extends React.Component {
                 <p>Day 5</p>
                 <p>{this.state.day5 == null ? "--" : this.state.day5} °C</p>
               </div>
-        </body>
-        <footer className="about-app">
+        </div>
+        <div className="about-app">
           <p>
             This app was made by Lachlan and developed at Takor.
             It is a simple weather app to demonstrate API fetch requests and practise good git commits.
           </p>
             <p>Current date and time of forecast: {this.state.forecastTime == null ? "--" : this.state.forecastTime}</p>
-        </footer>
-      </html>
+        </div>
+      </div>
     );
   }
 }
