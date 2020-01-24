@@ -213,7 +213,8 @@ class App extends React.Component {
             <form onSubmit={this.handleSubmit}>
               <div className="text-center">
                 <div class="form-group">
-                  <input type="text" class="form-control-sm" onChange={this.handleChange} />
+                  <input type="text" class="form-control-sm" pattern="^[0-9]{7}$" onChange={this.handleChange}
+                   title="City codes must be exactly 7 digits long!" />
                   <input type="submit" class="btn btn-info btn-sm" value="Update Code" />
                 </div>
               </div>
