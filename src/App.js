@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -37,11 +37,13 @@ class App extends React.Component {
       return response.json();
     }).then(json_result /* This is the response.json() */ => {
       /* Set temperature data for days */
-      this.setState({day1: parseFloat(this.kelvinToCelsius(json_result.list[this.state.timeInc].main.temp).toFixed(4))});
-      this.setState({day2: parseFloat(this.kelvinToCelsius(json_result.list[6 + this.state.timeInc].main.temp).toFixed(4))});
-      this.setState({day3: parseFloat(this.kelvinToCelsius(json_result.list[12 + this.state.timeInc].main.temp).toFixed(4))});
-      this.setState({day4: parseFloat(this.kelvinToCelsius(json_result.list[18 + this.state.timeInc].main.temp).toFixed(4))});
-      this.setState({day5: parseFloat(this.kelvinToCelsius(json_result.list[24 + this.state.timeInc].main.temp).toFixed(4))});
+      this.setState({day1: parseFloat(this.kelvinToCelsius(json_result.list[this.state.timeInc].main.temp).toFixed(0))});
+      this.setState({day2: parseFloat(this.kelvinToCelsius(json_result.list[6 + this.state.timeInc].main.temp).toFixed(0))});
+      this.setState({day3: parseFloat(this.kelvinToCelsius(json_result.list[12 + this.state.timeInc].main.temp).toFixed(0))});
+      this.setState({day4: parseFloat(this.kelvinToCelsius(json_result.list[18 + this.state.timeInc].main.temp).toFixed(0))});
+      this.setState({day5: 24 + this.state.timeInc > this.state.totalLines ? null :
+        parseFloat(this.kelvinToCelsius(json_result.list[24 + this.state.timeInc].main.temp).toFixed(0))
+      });
       /* Set other state data */
       this.setState({city: json_result.city.name});
       this.setState({country: json_result.city.country});
@@ -75,48 +77,56 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="weather-app">
-        <div className="weather-today">
-          <div className="headcolumn">
-            <button onClick={this.decrementTime} className="nav-button">Remove 3 hours</button>
+      <div className="p-3 mb-2 bg-dark text-white">
+        <div class="row" id="title-forecast">
+          <div class="col-md-4">{/* Empty spacer */}</div>
+          <div class="col-md-4">
+            <h3>Today's Forecast:</h3>
+            <h5><small>{this.state.city == null ? "undefined" : this.state.city}, 
+            {this.state.country == null ? "undefined" : this.state.country}</small></h5>
           </div>
-          <div className="headcolumn">
-            <p className="forecast-title">Forecast for {this.state.city == null ? "undefined" : this.state.city}, 
-            {this.state.country == null ? "undefined" : this.state.country}:</p>
-            <p className="top-forecast">{this.state.day1 == null ? "--" : this.state.day1} °C</p> 
+          <div class="col-md-4">{/* Empty spacer */}</div>
+        </div>
+        <div class="row" id="current-forecast">
+          <div class="col-md-4">
+            <button type="button" onClick={this.decrementTime} class="btn btn-danger btn-sm">Remove 3 hours</button>
           </div>
-          <div className="headcolumn">
-            <button onClick={this.incrementTime}  className="nav-button">Add 3 hours</button>
+          <div class="col-md-4">
+            <h1>{this.state.day1 == null ? "--" : this.state.day1} °C</h1>
+          </div>
+          <div class="col-md-4">
+            <button type="button" onClick={this.incrementTime} class="btn btn-primary btn-sm">Add 3 hours</button>
           </div>
         </div>
-        <div className="weather-later">
-              <div className="bodycolumn">
-                <p>Today</p>
-                <p>{this.state.day1 == null ? "--" : this.state.day1} °C</p>
-              </div>
-              <div className="bodycolumn">
-                <p>Tomorrow</p>
-                <p>{this.state.day2 == null ? "--" : this.state.day2} °C</p>
-              </div>
-              <div className="bodycolumn">
-                <p>Day 3</p>
-                <p>{this.state.day3 == null ? "--" : this.state.day3} °C</p>
-              </div>
-              <div className="bodycolumn">
-                <p>Day 4</p>
-                <p>{this.state.day4 == null ? "--" : this.state.day4} °C</p>
-              </div>
-              <div className="bodycolumn">
-                <p>Day 5</p>
-                <p>{this.state.day5 == null ? "--" : this.state.day5} °C</p>
-              </div>
+        <div class="row" id="later-forecast">
+          <div class="col-md-3">
+            <p class="lead">Tomorrow</p>
+            <h2>{this.state.day2 == null ? "--" : this.state.day2} °C</h2>
+          </div>
+          <div class="col-md-3">
+            <p class="lead">Day 3</p>
+            <h2>{this.state.day3 == null ? "--" : this.state.day3} °C</h2>
+          </div>
+          <div class="col-md-3">
+            <p class="lead">Day 4</p>
+            <h2>{this.state.day4 == null ? "--" : this.state.day4} °C</h2>
+          </div>
+          <div class="col-md-3">
+            <p class="lead">Day 5</p>
+            <h2>{this.state.day5 == null ? "--" : this.state.day5} °C</h2>
+          </div>
         </div>
-        <div className="about-app">
-          <p>
-            This app was made by Lachlan and developed at Takor.
-            It is a simple weather app to demonstrate API fetch requests and practise good git commits.
-          </p>
-            <p>Current date and time of forecast: {this.state.forecastTime == null ? "--" : this.state.forecastTime}</p>
+        <div class="row" id="about-app">
+          <div class="col-md-4">{/* Empty spacer */}</div>
+          <div class="col-md-4">
+            <div class="text-center">
+              <h6><small>This app was made by Lachlan and developed at Takor.
+                It is a simple weather app to demonstrate API fetch requests and practise good git commits.</small></h6>
+                <h6><small>Current date and time of forecast: 
+                  {this.state.forecastTime == null ? "--" : this.state.forecastTime}</small></h6>
+            </div>
+          </div>
+          <div class="col-md-4">{/* Empty spacer */}</div>
         </div>
       </div>
     );
