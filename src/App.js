@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 
+// import 'bootstrap/dist/css/bootstrap.min.css'
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +26,7 @@ class App extends React.Component {
   kelvinToCelsius = (kelvin) => {return (kelvin - 273.15);}
 
   /* 
-   * Fetch API address for Perth:
+   * Fetch API address for Perth, AU:
    * http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c
    */
   getWeatherData = () => {
