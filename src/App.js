@@ -36,19 +36,23 @@ class App extends React.Component {
 
       return response.json();
     }).then(json_result /* This is the response.json() */ => {
-      /* Set temperature data for days */
-      this.setState({day1: parseFloat(this.kelvinToCelsius(json_result.list[this.state.timeInc].main.temp).toFixed(0))});
-      this.setState({day2: parseFloat(this.kelvinToCelsius(json_result.list[6 + this.state.timeInc].main.temp).toFixed(0))});
-      this.setState({day3: parseFloat(this.kelvinToCelsius(json_result.list[12 + this.state.timeInc].main.temp).toFixed(0))});
-      this.setState({day4: parseFloat(this.kelvinToCelsius(json_result.list[18 + this.state.timeInc].main.temp).toFixed(0))});
-      this.setState({day5: 24 + this.state.timeInc > this.state.totalLines ? null :
-        parseFloat(this.kelvinToCelsius(json_result.list[24 + this.state.timeInc].main.temp).toFixed(0))
-      });
-      /* Set other state data */
+      /* Set misc. state data */
       this.setState({city: json_result.city.name});
       this.setState({country: json_result.city.country});
       this.setState({forecastTime: json_result.list[this.state.timeInc].dt_txt});
       this.setState({totalLines: json_result.cnt});
+
+      /* Set temperature data for days */
+      this.setState({day1: this.state.timeInc > this.state.totalLines ? null :
+        parseFloat(this.kelvinToCelsius(json_result.list[this.state.timeInc].main.temp).toFixed(0))});
+      this.setState({day2: 6 + this.state.timeInc > this.state.totalLines ? null :
+        parseFloat(this.kelvinToCelsius(json_result.list[6 + this.state.timeInc].main.temp).toFixed(0))});
+      this.setState({day3: 12 + this.state.timeInc > this.state.totalLines ? null :
+        parseFloat(this.kelvinToCelsius(json_result.list[12 + this.state.timeInc].main.temp).toFixed(0))});
+      this.setState({day4: 18 + this.state.timeInc > this.state.totalLines ? null :
+        parseFloat(this.kelvinToCelsius(json_result.list[18 + this.state.timeInc].main.temp).toFixed(0))});
+      this.setState({day5: 24 + this.state.timeInc > this.state.totalLines ? null :
+        parseFloat(this.kelvinToCelsius(json_result.list[24 + this.state.timeInc].main.temp).toFixed(0))});
     })
     .catch((error) => {
       console.log(error);
@@ -98,6 +102,7 @@ class App extends React.Component {
             <button type="button" onClick={this.incrementTime} class="btn btn-primary btn-sm">Add 3 hours</button>
           </div>
         </div>
+        <div class="mt-5" id="spacer">{/* Empty row spacer */}</div>
         <div class="row" id="later-forecast">
           <div class="col-md-3">
             <p class="lead">Tomorrow</p>
@@ -116,6 +121,7 @@ class App extends React.Component {
             <h2>{this.state.day5 == null ? "--" : this.state.day5} °C</h2>
           </div>
         </div>
+        <div class="mt-5" id="spacer">{/* Empty row spacer */}</div>
         <div class="row" id="about-app">
           <div class="col-md-4">{/* Empty spacer */}</div>
           <div class="col-md-4">
