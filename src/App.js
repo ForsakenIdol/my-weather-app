@@ -115,8 +115,10 @@ class App extends React.Component {
     }
   }
 
+  /* Update the value of cityCode based on the data entered in the text input for the form */
   handleChange = event => {this.setState({cityCode: event.target.value});}
 
+  /* On form submit ("Update Code" pressed), re-request weather data */
   handleSubmit = event => {
     this.getWeatherData();
     event.preventDefault();
