@@ -7,7 +7,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cityCode: 2063523, /* Default city code is Perth, AU */
       /* Forecast variables */
       day1: null,
       day2: null,
@@ -25,6 +24,7 @@ class App extends React.Component {
       totalLines: null,
       city: null,
       country: null,
+      cityCode: 2063523, /* Default city code is Perth, AU */
       forecastTime: null /* Current time at which forecast was taken */
     }
   }
@@ -109,7 +109,7 @@ class App extends React.Component {
                  "http://openweathermap.org/img/wn/50d@2x.png", "http://openweathermap.org/img/wn/01d@2x.png",
                  "http://openweathermap.org/img/wn/04d@2x.png"];
     for (let i = 0; i < 7; i++) {
-      if (props == conditions[i]) {
+      if (props === conditions[i]) {
         return icons[i];
       }
     }
@@ -143,7 +143,7 @@ class App extends React.Component {
             </div>
           </div>
           <div className="col-md-4"> {/* Forecast for today */}
-            <img src={this.getWeatherIcon(this.state.day1Weather)} className="mx-auto d-block" ></img>
+            <img src={this.getWeatherIcon(this.state.day1Weather)} className="mx-auto d-block" alt=""></img>
             <div className="text-center"><h1>{this.state.day1 == null ? "--" : this.state.day1} °C</h1></div>
           </div>
           <div className="col-md-4">
@@ -157,28 +157,28 @@ class App extends React.Component {
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Tomorrow: {this.state.day2Weather == null ? "--" : this.state.day2Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day2Weather)} className="mx-auto d-block" ></img>
+              <img src={this.getWeatherIcon(this.state.day2Weather)} className="mx-auto d-block" alt=""></img>
               <h2>{this.state.day2 == null ? "--" : this.state.day2} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 3: {this.state.day3Weather == null ? "--" : this.state.day3Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day3Weather)} className="mx-auto d-block" ></img>
+              <img src={this.getWeatherIcon(this.state.day3Weather)} className="mx-auto d-block" alt=""></img>
               <h2>{this.state.day3 == null ? "--" : this.state.day3} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 4: {this.state.day4Weather == null ? "--" : this.state.day4Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day4Weather)} className="mx-auto d-block" ></img>
+              <img src={this.getWeatherIcon(this.state.day4Weather)} className="mx-auto d-block" alt=""></img>
               <h2>{this.state.day4 == null ? "--" : this.state.day4} °C</h2>
             </div>
           </div>
           <div className="col-md-3">
             <div className="text-center">
               <p className="lead">Day 5: {this.state.day5Weather == null ? "--" : this.state.day5Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day5Weather)} className="mx-auto d-block" ></img>
+              <img src={this.getWeatherIcon(this.state.day5Weather)} className="mx-auto d-block" alt=""></img>
               <h2>{this.state.day5 == null ? "--" : this.state.day5} °C</h2>
             </div>
           </div>
@@ -212,10 +212,10 @@ class App extends React.Component {
           <div className="col-md-4">
             <form onSubmit={this.handleSubmit}>
               <div className="text-center">
-                <div class="form-group">
-                  <input type="text" class="form-control-sm" pattern="^[0-9]{7}$" onChange={this.handleChange}
+                <div className="form-group">
+                  <input type="text" className="form-control-sm" pattern="^[0-9]{7}$" onChange={this.handleChange}
                    title="City codes must be exactly 7 digits long!" />
-                  <input type="submit" class="btn btn-info btn-sm" value="Update Code" />
+                  <input type="submit" className="btn btn-info btn-sm" value="Update Code" />
                 </div>
               </div>
             </form>
