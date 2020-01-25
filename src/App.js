@@ -1,7 +1,16 @@
 import React from 'react';
 import './App.css';
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import citiesJSON from "./cities.json"; /* This is the file containing all the cities and their codes. */
+
+/*
+ * ---------- Buglist & TODO ----------
+ * ~ The name search form needs to be 
+ * submitted twice before the weather
+ * forecast changes.
+ * ~ Add all cities to the "cities.json" file.
+ */
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +34,8 @@ class App extends React.Component {
       city: null,
       country: null,
       cityCode: 2063523, /* Default city code is Perth, AU */
-      forecastTime: null /* Current time at which forecast was taken */
+      forecastTime: null, /* Current time at which forecast was taken */
+      cityInput: null /* State variable for the name input form */
     }
   }
 
@@ -36,6 +46,7 @@ class App extends React.Component {
    * http://api.openweathermap.org/data/2.5/forecast?id=2063523&APPID=a61002d90fe4eaac824f28012985aa2c
    */
   getWeatherData = () => {
+    if (!this.state.cityCode) this.setState({cityCode: 2063523}); /* Form is manually emptied, reset code to default */
     let APIAddress = "http://api.openweathermap.org/data/2.5/forecast?id=" + this.state.cityCode
                       + "&APPID=a61002d90fe4eaac824f28012985aa2c"
     fetch(APIAddress)
@@ -116,11 +127,56 @@ class App extends React.Component {
   }
 
   /* Update the value of cityCode based on the data entered in the text input for the form */
-  handleChange = event => {this.setState({cityCode: event.target.value});}
+  handleCodeChange = event => {this.setState({cityCode: event.target.value});}
 
   /* On form submit ("Update Code" pressed), re-request weather data */
-  handleSubmit = event => {
-    this.getWeatherData();
+  handleCodeSubmit = event => {
+    let cityFound = false;
+    /*
+     * Checks the input code against the "cities.json" file. If a code match occurs, 
+     * log the name of the city to the console.
+     */
+    for (let i = 0; i < citiesJSON.length; i++) {
+      if (citiesJSON[i].id == this.state.cityCode) {
+        console.log(citiesJSON[i].name); /* Debug print */
+        cityFound = true;
+        this.getWeatherData();
+        break;
+      }
+    }
+    if (!cityFound) {
+      this.setState({cityCode: 2063523});
+      console.log("No match for the given cityCode.");
+    }
+    event.preventDefault();
+  }
+
+  handleNameChange = event => {this.setState({cityInput: event.target.value});}
+
+  handleNameSubmit = event => {
+    let cityFound = false;
+    /*
+     * Checks the input name against the "cities.json" file. If a name match occurs, 
+     * log the code of the city to the console.
+     */
+    for (let i = 0; i < citiesJSON.length; i++) {
+      if (citiesJSON[i].name == this.state.cityInput) {
+        console.log("----------------------------------");
+        console.log(this.state.cityCode);
+        console.log(citiesJSON[i].id);
+        this.setState({cityCode: citiesJSON[i].id});
+        console.log("After:");
+        console.log(this.state.cityCode);
+        console.log(citiesJSON[i].id); /* Debug print */
+        cityFound = true;
+        this.getWeatherData();
+        break;
+      }
+    }
+    if (!cityFound) {
+      //this.setState({city: "Perth", country: "AU"});
+      console.log("No match for the given city name.");
+    }
     event.preventDefault();
   }
 
@@ -208,15 +264,19 @@ class App extends React.Component {
                 It is a simple weather app to demonstrate API fetch requests and practise good git commits.</small></h6>
             </div>
           </div>
-          <div className="col-md-4">{/* Empty spacer */}</div>
+          <div className="col-md-4">
+            <div className="text-center">
+              <small>Searching by city name instead? Enter it below for accurate forcast information!</small>
+            </div>
+          </div>
         </div>
         <div className="row">
           <div className="col-md-4">
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleCodeSubmit}>
               <div className="text-center">
                 <div className="form-group">
-                  <input type="text" className="form-control-sm" pattern="^[0-9]{7}$" onChange={this.handleChange}
-                   title="City codes must be exactly 7 digits long!" />
+                  <input type="text" className="form-control-sm" pattern="^[0-9]{5,7}$" onChange={this.handleCodeChange}
+                   title="City codes must be between 5 to 7 digits long!" />
                   <input type="submit" className="btn btn-info btn-sm" value="Update Code" />
                 </div>
               </div>
@@ -228,7 +288,24 @@ class App extends React.Component {
                   {this.state.forecastTime == null ? "--" : this.state.forecastTime}</small></h6>
             </div>
           </div>
-          <div className="col-md-4">{/* Empty spacer */}</div>
+          <div className="col-md-4">
+            <form onSubmit={this.handleNameSubmit}> {/* The form lags behind by one call. */}
+              <div className="text-center">
+                <div className="form-group">
+                  <input type="text" className="form-control-sm" onChange={this.handleNameChange} />
+                  <input type="submit" className="btn btn-info btn-sm" value="Update Name" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="mt-5" id="spacer">{/* Empty row spacer */}</div>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="text-center">
+              <h6><small>Weather data from openweathermap.org</small></h6>
+            </div>
+          </div>
         </div>
       </div>
     );
