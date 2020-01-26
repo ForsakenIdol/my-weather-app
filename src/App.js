@@ -9,7 +9,6 @@ import citiesJSON from "./cities.json"; /* This is the file containing all the c
  * ~ The name search form needs to be 
  * submitted twice before the weather
  * forecast changes.
- * ~ Add all cities to the "cities.json" file.
  */
 
 class App extends React.Component {
