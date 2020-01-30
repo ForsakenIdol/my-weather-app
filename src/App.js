@@ -217,34 +217,32 @@ class App extends React.Component {
         <div className="mt-5" id="spacer">{/* Empty row spacer */}</div>
         <div className="row" id="later-forecast">
           <div className="col-md-3">
-
             <WeatherDay
               dayName="Tommorow"
               forecast={this.state.day2Weather}
               temperature={this.state.day2}
               weatherIcon={this.getWeatherIcon(this.state.day2Weather)} />
-           
           </div>
           <div className="col-md-3">
-            <div className="text-center">
-              <p className="lead">Day 3: {this.state.day3Weather == null ? "--" : this.state.day3Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day3Weather)} className="mx-auto d-block" alt=""></img>
-              <h2>{this.state.day3 == null ? "--" : this.state.day3} °C</h2>
-            </div>
+            <WeatherDay
+              dayName="Day 3"
+              forecast={this.state.day3Weather}
+              temperature={this.state.day3}
+              weatherIcon={this.getWeatherIcon(this.state.day3Weather)} />
           </div>
           <div className="col-md-3">
-            <div className="text-center">
-              <p className="lead">Day 4: {this.state.day4Weather == null ? "--" : this.state.day4Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day4Weather)} className="mx-auto d-block" alt=""></img>
-              <h2>{this.state.day4 == null ? "--" : this.state.day4} °C</h2>
-            </div>
+            <WeatherDay
+              dayName="Day 4"
+              forecast={this.state.day4Weather}
+              temperature={this.state.day4}
+              weatherIcon={this.getWeatherIcon(this.state.day4Weather)} />
           </div>
           <div className="col-md-3">
-            <div className="text-center">
-              <p className="lead">Day 5: {this.state.day5Weather == null ? "--" : this.state.day5Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day5Weather)} className="mx-auto d-block" alt=""></img>
-              <h2>{this.state.day5 == null ? "--" : this.state.day5} °C</h2>
-            </div>
+            <WeatherDay
+              dayName="Day 5"
+              forecast={this.state.day5Weather}
+              temperature={this.state.day5}
+              weatherIcon={this.getWeatherIcon(this.state.day5Weather)} />
           </div>
         </div>
         <div className="mt-5" id="spacer">{/* Empty row spacer */}</div>
