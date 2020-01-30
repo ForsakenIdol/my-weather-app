@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import WeatherDay from './Components/weather-day';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import citiesJSON from "./cities.json"; /* This is the file containing all the cities and their codes. */
@@ -212,11 +213,13 @@ class App extends React.Component {
         <div className="mt-5" id="spacer">{/* Empty row spacer */}</div>
         <div className="row" id="later-forecast">
           <div className="col-md-3">
-            <div className="text-center">
-              <p className="lead">Tomorrow: {this.state.day2Weather == null ? "--" : this.state.day2Weather}</p>
-              <img src={this.getWeatherIcon(this.state.day2Weather)} className="mx-auto d-block" alt=""></img>
-              <h2>{this.state.day2 == null ? "--" : this.state.day2} °C</h2>
-            </div>
+
+            <WeatherDay
+              dayName="Tommorow"
+              forecast={this.state.day2Weather}
+              temperature={this.state.day2}
+              weatherIcon={this.getWeatherIcon(this.state.day2Weather)} />
+           
           </div>
           <div className="col-md-3">
             <div className="text-center">
