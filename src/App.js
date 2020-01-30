@@ -175,7 +175,7 @@ class App extends React.Component {
       }
     }
     if (!cityFound) {
-      //this.setState({city: "Perth", country: "AU"});
+      this.setState({cityInput: null});
       console.log("No match for the given city name.");
     }
     event.preventDefault();
@@ -273,6 +273,7 @@ class App extends React.Component {
         </div>
         <div className="row">
           <div className="col-md-4">
+            {/* This is the form for the code search. */}
             <form onSubmit={this.handleCodeSubmit}>
               <div className="text-center">
                 <div className="form-group">
@@ -285,11 +286,12 @@ class App extends React.Component {
           </div>
           <div className="col-md-4">
             <div className="text-center">
-            <h6><small>Current date and time of forecast: </small></h6><h6><small>
-                  {this.state.forecastTime == null ? "--" : this.state.forecastTime}</small></h6>
+            <h6><small>Current date and time of forecast: </small></h6>
+            <h6><small>{this.state.forecastTime == null ? "--" : this.state.forecastTime}</small></h6>
             </div>
           </div>
           <div className="col-md-4">
+            {/* This is the form for the name search. */}
             <form onSubmit={this.handleNameSubmit}> {/* The form lags behind by one call. */}
               <div className="text-center">
                 <div className="form-group">
