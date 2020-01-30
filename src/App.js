@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+
 import WeatherDay from './Components/weather-day';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +11,9 @@ import citiesJSON from "./cities.json"; /* This is the file containing all the c
  * ~ The name search form needs to be 
  * submitted twice before the weather
  * forecast changes.
+ * ~ Modularize as much of the code as
+ * possible. The App component has
+ * grown far too large.
  */
 
 class App extends React.Component {
