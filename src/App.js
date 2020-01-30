@@ -119,13 +119,10 @@ class App extends React.Component {
    */
   getWeatherIcon = (props) => {
     let conditions = ["Thunderstorm", "Drizzle", "Rain", "Snow", "Atmosphere", "Clear", "Clouds"];
-    let icons = ["http://openweathermap.org/img/wn/11d@2x.png", "http://openweathermap.org/img/wn/10d@2x.png",
-                 "http://openweathermap.org/img/wn/09d@2x.png", "http://openweathermap.org/img/wn/13d@2x.png",
-                 "http://openweathermap.org/img/wn/50d@2x.png", "http://openweathermap.org/img/wn/01d@2x.png",
-                 "http://openweathermap.org/img/wn/04d@2x.png"];
+    let icons = ["11d", "10d", "09d", "13d", "50d", "01d", "04d"];
     for (let i = 0; i < 7; i++) {
       if (props === conditions[i]) {
-        return icons[i];
+        return ("http://openweathermap.org/img/wn/" + icons[i] + "@2x.png");
       }
     }
   }
