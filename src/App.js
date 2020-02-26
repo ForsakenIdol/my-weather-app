@@ -104,7 +104,7 @@ class App extends React.Component {
       this.setState({timeInc: this.state.timeInc + 1});
       this.getWeatherData();
     }
-  }
+  } 
   // Moves forecast back by 3 hours; does nothing if user tries to move it behind the current day
   decrementTime = () => {
     if(this.state.timeInc > 0) {
